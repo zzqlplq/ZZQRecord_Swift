@@ -27,11 +27,11 @@ class ZZQRecorder: NSObject, AVAudioRecorderDelegate {
         }
     }
     
-    var settings = [AVFormatIDKey: kAudioFormatMPEG4AAC,
+    var settings: [String : Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC,
                    AVSampleRateKey: 8000,
                    AVNumberOfChannelsKey: 1,
                    AVLinearPCMBitDepthKey: 16,
-                   AVLinearPCMIsFloatKey: true] as [String : Any]
+                   AVLinearPCMIsFloatKey: true]
 
     init(fileExtension: String) {
         super.init()
@@ -117,12 +117,9 @@ class ZZQRecorder: NSObject, AVAudioRecorderDelegate {
      
     
     private func resetAudioRecorder() {
-        
-        if audioRecorder != nil {
-            audioRecorder!.stop()
-            audioRecorder!.delegate = nil
-            audioRecorder = nil
-         }
+        audioRecorder?.stop()
+        audioRecorder?.delegate = nil
+        audioRecorder = nil
      }
 }
 
@@ -154,7 +151,6 @@ extension ZZQRecorder {
 private struct Util {
     
     static func dateToString(_ date: Date = Date.init(), _ dateFormat: String = "yyyy-MM-dd-HH-mm-ss") -> String {
-        
         let formatter = DateFormatter.init()
          formatter.dateFormat = dateFormat
         return formatter.string(from: date)
